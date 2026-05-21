@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kaiser Plugins</title>
+  <title>Sirel Hub</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -16,7 +16,7 @@
       --panel:#101826;
       --panel2:#0d1320;
       --border:#1d2940;
-      --text:#e7edf9;
+      --text:#eef4ff;
       --muted:#8da2c0;
       --accent:#00d4ff;
       --accent2:#7c4dff;
@@ -81,9 +81,9 @@
     }
 
     .logo-box{
-      width:50px;
-      height:50px;
-      border-radius:16px;
+      width:54px;
+      height:54px;
+      border-radius:18px;
 
       background:linear-gradient(135deg,var(--accent),var(--accent2));
 
@@ -92,7 +92,8 @@
       justify-content:center;
 
       font-weight:700;
-      font-size:22px;
+      font-size:24px;
+      color:white;
     }
 
     .nav{
@@ -118,7 +119,7 @@
 
     .main{
       margin-left:280px;
-      padding:50px;
+      padding:60px;
     }
 
     .hero{
@@ -130,35 +131,14 @@
     .hero-grid{
       display:grid;
       grid-template-columns:1.2fr .8fr;
-      gap:60px;
+      gap:70px;
       align-items:center;
-    }
-
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:10px 18px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background:rgba(255,255,255,.03);
-      margin-bottom:30px;
-      color:var(--muted);
-      font-size:13px;
-    }
-
-    .dot{
-      width:10px;
-      height:10px;
-      background:#00ff9d;
-      border-radius:50%;
-      box-shadow:0 0 20px #00ff9d;
     }
 
     h1{
-      font-size:82px;
+      font-size:110px;
       line-height:.92;
-      margin-bottom:24px;
+      margin-bottom:30px;
       font-weight:700;
     }
 
@@ -171,9 +151,9 @@
     .hero p{
       color:var(--muted);
       line-height:1.8;
-      max-width:700px;
-      margin-bottom:36px;
-      font-size:17px;
+      max-width:850px;
+      margin-bottom:42px;
+      font-size:22px;
     }
 
     .hero-buttons{
@@ -183,12 +163,14 @@
     }
 
     .btn{
-      padding:14px 24px;
-      border-radius:14px;
+      padding:15px 28px;
+      border-radius:16px;
       text-decoration:none;
       font-weight:700;
       transition:.25s;
       display:inline-block;
+      cursor:pointer;
+      border:none;
     }
 
     .btn-primary{
@@ -210,15 +192,15 @@
     .preview-box{
       background:linear-gradient(180deg,#10192b,#0c1220);
       border:1px solid var(--border);
-      border-radius:30px;
-      padding:28px;
+      border-radius:32px;
+      padding:30px;
     }
 
     .terminal{
       font-family:'JetBrains Mono',monospace;
       color:#91e9ff;
-      line-height:1.9;
-      font-size:14px;
+      line-height:2;
+      font-size:15px;
     }
 
     section{
@@ -226,7 +208,7 @@
     }
 
     .section-title{
-      font-size:42px;
+      font-size:46px;
       margin-bottom:14px;
       font-weight:700;
     }
@@ -236,6 +218,7 @@
       margin-bottom:40px;
       max-width:700px;
       line-height:1.8;
+      font-size:18px;
     }
 
     .plugins{
@@ -336,7 +319,7 @@
       }
 
       h1{
-        font-size:58px;
+        font-size:68px;
       }
 
     }
@@ -353,7 +336,11 @@
       }
 
       h1{
-        font-size:46px;
+        font-size:52px;
+      }
+
+      .hero p{
+        font-size:18px;
       }
 
     }
@@ -372,16 +359,16 @@
   <div class="logo">
 
     <div class="logo-box">
-      K
+      S
     </div>
 
     <div>
-      <h2 style="font-size:18px;font-weight:700;">
-        Kaiser
+      <h2 style="font-size:20px;font-weight:700;">
+        Sirel Hub
       </h2>
 
       <p style="font-size:12px;color:var(--muted);">
-        Minecraft Developer
+        Minecraft Plugins
       </p>
     </div>
 
@@ -407,11 +394,6 @@
 
       <div>
 
-        <div class="badge">
-          <div class="dot"></div>
-          Active Development
-        </div>
-
         <h1>
           Modern
           <span class="gradient">
@@ -420,8 +402,9 @@
         </h1>
 
         <p>
-          Custom Minecraft plugins and Skripts focused on performance,
-          clean gameplay systems, moderation tools, and server utilities.
+          Custom Minecraft plugins and Skripts built for modern servers with
+          optimized performance, clean gameplay systems, moderation utilities,
+          automation features, and high-quality server experiences.
         </p>
 
         <div class="hero-buttons">
@@ -430,9 +413,9 @@
             Browse Plugins
           </a>
 
-          <a href="#contact" class="btn btn-secondary">
-            Contact
-          </a>
+          <button onclick="openDiscordModal()" class="btn btn-secondary">
+            Contact Me
+          </button>
 
         </div>
 
@@ -444,15 +427,15 @@
 
           <div class="terminal">
 
-> loading plugin modules...<br><br>
+> initializing sirel systems...<br><br>
 
-✔ worldguard hooked<br>
-✔ permissions synced<br>
-✔ commands loaded<br>
-✔ anti-lag enabled<br>
-✔ startup complete<br><br>
+✔ plugins compiled<br>
+✔ skripts injected<br>
+✔ cache optimized<br>
+✔ server synced<br>
+✔ security enabled<br><br>
 
-server ready.
+everything is running smoothly.
 
           </div>
 
@@ -509,7 +492,7 @@ server ready.
             </a>
 
             <button class="small-btn docs"
-            onclick="openModal(
+            onclick="openInfo(
               'Hide Players Plugin',
               '/hideplayers makes it so you can see players as long as you dont get hit and as long as you dont leave the region spawn. Requires WorldGuard to run properly.'
             )">
@@ -555,7 +538,7 @@ server ready.
             </a>
 
             <button class="small-btn docs"
-            onclick="openModal(
+            onclick="openInfo(
               'Xray Ore Alerts Plugin',
               'When a player mines diamond or ancient debris, a message is sent to all players with the permission xray.alerts.'
             )">
@@ -601,7 +584,7 @@ server ready.
             </a>
 
             <button class="small-btn docs"
-            onclick="openModal(
+            onclick="openInfo(
               'Home Skript',
               '/sethome sets your home at your current position. /home teleports you back to your saved location.'
             )">
@@ -631,19 +614,15 @@ server ready.
       </h2>
 
       <p class="section-sub">
-        Available for commissions, custom systems,
-        server setup work, and private plugins.
+        Available for commissions, private plugins,
+        custom server systems, and setup work.
       </p>
 
       <div class="hero-buttons">
 
-        <a href="#" class="btn btn-primary">
-          Join Discord
-        </a>
-
-        <a href="#" class="btn btn-secondary">
-          Contact Me
-        </a>
+        <button onclick="openDiscordModal()" class="btn btn-primary">
+          Contact on Discord
+        </button>
 
       </div>
 
@@ -653,37 +632,38 @@ server ready.
 
   <footer>
     <p>
-      Kaiser © 2026 — Minecraft Plugin Development
+      Sirel Hub © 2026 — Minecraft Plugin Development
     </p>
   </footer>
 
 </main>
 
-<!-- MODAL -->
+<!-- INFO MODAL -->
 
-<div id="pluginModal"
+<div id="infoModal"
 style="
 position:fixed;
 inset:0;
-background:rgba(0,0,0,.75);
+background:rgba(0,0,0,.7);
 display:none;
 align-items:center;
 justify-content:center;
 z-index:9999;
 padding:20px;
+backdrop-filter:blur(8px);
 ">
 
   <div style="
   width:100%;
   max-width:650px;
-  background:#0f1726;
+  background:rgba(15,23,38,.95);
   border:1px solid #263349;
   border-radius:28px;
   padding:32px;
   position:relative;
   ">
 
-    <button onclick="closeModal()"
+    <button onclick="closeInfo()"
     style="
     position:absolute;
     top:16px;
@@ -697,14 +677,14 @@ padding:20px;
       ×
     </button>
 
-    <h2 id="modalTitle"
+    <h2 id="infoTitle"
     style="
     font-size:34px;
     margin-bottom:20px;
     ">
     </h2>
 
-    <p id="modalText"
+    <p id="infoText"
     style="
     color:#94a3b8;
     line-height:1.9;
@@ -716,30 +696,105 @@ padding:20px;
 
 </div>
 
+<!-- DISCORD MODAL -->
+
+<div id="discordModal"
+style="
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.65);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:99999;
+backdrop-filter:blur(10px);
+padding:20px;
+">
+
+  <div style="
+  width:100%;
+  max-width:520px;
+  background:rgba(15,23,38,.92);
+  border:1px solid #2a3b57;
+  border-radius:28px;
+  padding:40px;
+  text-align:center;
+  position:relative;
+  ">
+
+    <button onclick="closeDiscordModal()"
+    style="
+    position:absolute;
+    top:16px;
+    right:18px;
+    background:none;
+    border:none;
+    color:white;
+    font-size:28px;
+    cursor:pointer;
+    ">
+      ×
+    </button>
+
+    <h2 style="
+    font-size:42px;
+    margin-bottom:18px;
+    ">
+      Add Me On Discord
+    </h2>
+
+    <p style="
+    color:#9fb3cf;
+    font-size:22px;
+    ">
+      eamesteap
+    </p>
+
+  </div>
+
+</div>
+
 <script>
 
-function openModal(title, text){
+function openInfo(title, text){
 
-  document.getElementById("pluginModal").style.display = "flex";
+  document.getElementById("infoModal").style.display = "flex";
 
-  document.getElementById("modalTitle").innerText = title;
+  document.getElementById("infoTitle").innerText = title;
 
-  document.getElementById("modalText").innerText = text;
+  document.getElementById("infoText").innerText = text;
 
 }
 
-function closeModal(){
+function closeInfo(){
 
-  document.getElementById("pluginModal").style.display = "none";
+  document.getElementById("infoModal").style.display = "none";
+
+}
+
+function openDiscordModal(){
+
+  document.getElementById("discordModal").style.display = "flex";
+
+}
+
+function closeDiscordModal(){
+
+  document.getElementById("discordModal").style.display = "none";
 
 }
 
 window.onclick = function(event){
 
-  const modal = document.getElementById("pluginModal");
+  const info = document.getElementById("infoModal");
+  const discord = document.getElementById("discordModal");
 
-  if(event.target === modal){
-    closeModal();
+  if(event.target === info){
+    closeInfo();
+  }
+
+  if(event.target === discord){
+    closeDiscordModal();
   }
 
 }
