@@ -1,0 +1,17 @@
+# Thank you for downloading the home skript from sirel hub
+# How to use:
+# /sethome - Sets your home at your current location
+# /home - Teleports you to your last saved home
+
+command /sethome:
+    trigger:
+        set {home::%player's uuid%} to location of player
+        send "&aYour home has been set!"
+
+command /home:
+    trigger:
+        if {home::%player's uuid%} is set:
+            teleport player to {home::%player's uuid%}
+            send "&aTeleported to your home!"
+        else:
+            send "&cYou have not set a home yet!"
