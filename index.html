@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>NexusForge | Plugin Developer</title>
+  <title>Kaiser Plugins</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
 
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
+
     :root{
       --bg:#070b14;
       --panel:#101826;
@@ -19,7 +20,6 @@
       --muted:#8da2c0;
       --accent:#00d4ff;
       --accent2:#7c4dff;
-      --success:#00ff9d;
     }
 
     *{
@@ -28,66 +28,49 @@
       box-sizing:border-box;
     }
 
-    html{
-      scroll-behavior:smooth;
-    }
-
     body{
       background:
-        radial-gradient(circle at top left, rgba(0,212,255,.08), transparent 30%),
-        radial-gradient(circle at bottom right, rgba(124,77,255,.08), transparent 30%),
-        var(--bg);
+      radial-gradient(circle at top left, rgba(0,212,255,.08), transparent 30%),
+      radial-gradient(circle at bottom right, rgba(124,77,255,.08), transparent 30%),
+      var(--bg);
+
       color:var(--text);
       font-family:'Space Grotesk',sans-serif;
       overflow-x:hidden;
+    }
+
+    html{
+      scroll-behavior:smooth;
     }
 
     .grid-bg{
       position:fixed;
       inset:0;
       background-image:
-        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+
       background-size:40px 40px;
-      mask-image:radial-gradient(circle at center, black 40%, transparent 100%);
       z-index:-2;
-    }
-
-    .blur-orb{
-      position:fixed;
-      width:500px;
-      height:500px;
-      border-radius:50%;
-      filter:blur(120px);
-      opacity:.08;
-      z-index:-1;
-    }
-
-    .orb1{
-      background:#00d4ff;
-      top:-200px;
-      left:-150px;
-    }
-
-    .orb2{
-      background:#7c4dff;
-      bottom:-250px;
-      right:-150px;
     }
 
     .sidebar{
       width:280px;
-      background:rgba(9,14,24,.7);
+      background:rgba(10,15,25,.75);
       backdrop-filter:blur(18px);
       border-right:1px solid var(--border);
+
       position:fixed;
       top:0;
       left:0;
       bottom:0;
+
       padding:28px;
+
       display:flex;
       flex-direction:column;
-      z-index:999;
+
+      z-index:1000;
     }
 
     .logo{
@@ -98,17 +81,18 @@
     }
 
     .logo-box{
-      width:48px;
-      height:48px;
+      width:50px;
+      height:50px;
       border-radius:16px;
+
       background:linear-gradient(135deg,var(--accent),var(--accent2));
+
       display:flex;
       align-items:center;
       justify-content:center;
+
       font-weight:700;
-      color:white;
-      font-size:20px;
-      box-shadow:0 0 40px rgba(0,212,255,.3);
+      font-size:22px;
     }
 
     .nav{
@@ -123,7 +107,6 @@
       padding:12px 14px;
       border-radius:14px;
       transition:.25s;
-      font-size:14px;
       font-weight:600;
     }
 
@@ -133,17 +116,9 @@
       transform:translateX(4px);
     }
 
-    .side-card{
-      margin-top:auto;
-      padding:18px;
-      background:linear-gradient(180deg,#11192a,#0b1220);
-      border:1px solid var(--border);
-      border-radius:20px;
-    }
-
     .main{
       margin-left:280px;
-      padding:40px;
+      padding:50px;
     }
 
     .hero{
@@ -154,8 +129,8 @@
 
     .hero-grid{
       display:grid;
-      grid-template-columns:1.3fr .9fr;
-      gap:50px;
+      grid-template-columns:1.2fr .8fr;
+      gap:60px;
       align-items:center;
     }
 
@@ -165,24 +140,24 @@
       gap:10px;
       padding:10px 18px;
       border-radius:999px;
-      background:rgba(255,255,255,.04);
       border:1px solid var(--border);
+      background:rgba(255,255,255,.03);
+      margin-bottom:30px;
       color:var(--muted);
-      margin-bottom:28px;
       font-size:13px;
     }
 
     .dot{
       width:10px;
       height:10px;
-      background:var(--success);
+      background:#00ff9d;
       border-radius:50%;
-      box-shadow:0 0 20px var(--success);
+      box-shadow:0 0 20px #00ff9d;
     }
 
-    .hero h1{
-      font-size:78px;
-      line-height:.9;
+    h1{
+      font-size:82px;
+      line-height:.92;
       margin-bottom:24px;
       font-weight:700;
     }
@@ -195,10 +170,10 @@
 
     .hero p{
       color:var(--muted);
-      max-width:700px;
       line-height:1.8;
-      font-size:17px;
+      max-width:700px;
       margin-bottom:36px;
+      font-size:17px;
     }
 
     .hero-buttons{
@@ -228,38 +203,20 @@
 
     .btn-secondary{
       border:1px solid var(--border);
-      color:var(--text);
       background:rgba(255,255,255,.03);
+      color:white;
     }
 
     .preview-box{
       background:linear-gradient(180deg,#10192b,#0c1220);
       border:1px solid var(--border);
       border-radius:30px;
-      padding:24px;
-      position:relative;
-      overflow:hidden;
+      padding:28px;
     }
-
-    .terminal-top{
-      display:flex;
-      gap:8px;
-      margin-bottom:20px;
-    }
-
-    .terminal-top span{
-      width:12px;
-      height:12px;
-      border-radius:50%;
-    }
-
-    .terminal-top span:nth-child(1){background:#ff5f57;}
-    .terminal-top span:nth-child(2){background:#febc2e;}
-    .terminal-top span:nth-child(3){background:#28c840;}
 
     .terminal{
-      font-family:'JetBrains Mono', monospace;
-      color:#9fe8ff;
+      font-family:'JetBrains Mono',monospace;
+      color:#91e9ff;
       line-height:1.9;
       font-size:14px;
     }
@@ -269,8 +226,8 @@
     }
 
     .section-title{
-      font-size:40px;
-      margin-bottom:16px;
+      font-size:42px;
+      margin-bottom:14px;
       font-weight:700;
     }
 
@@ -278,57 +235,39 @@
       color:var(--muted);
       margin-bottom:40px;
       max-width:700px;
-    }
-
-    .stats{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:20px;
-      margin-top:50px;
-    }
-
-    .stat{
-      background:rgba(255,255,255,.03);
-      border:1px solid var(--border);
-      padding:26px;
-      border-radius:24px;
-    }
-
-    .stat h3{
-      font-size:42px;
-      margin-bottom:10px;
+      line-height:1.8;
     }
 
     .plugins{
       display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
       gap:24px;
     }
 
     .plugin-card{
       background:linear-gradient(180deg,var(--panel),var(--panel2));
       border:1px solid var(--border);
-      border-radius:26px;
+      border-radius:28px;
       overflow:hidden;
       transition:.3s;
     }
 
     .plugin-card:hover{
       transform:translateY(-8px);
-      border-color:#2f4d73;
+      border-color:#35507a;
     }
 
     .plugin-banner{
-      height:180px;
+      height:190px;
       background:linear-gradient(135deg,#00d4ff22,#7c4dff33);
       display:flex;
       align-items:center;
       justify-content:center;
-      font-size:60px;
+      font-size:70px;
     }
 
     .plugin-content{
-      padding:24px;
+      padding:26px;
     }
 
     .tag{
@@ -338,18 +277,18 @@
       background:#12233c;
       color:#7dd3fc;
       font-size:12px;
-      margin-bottom:14px;
+      margin-bottom:16px;
     }
 
     .plugin-content h3{
-      font-size:24px;
+      font-size:28px;
       margin-bottom:12px;
     }
 
     .plugin-content p{
       color:var(--muted);
       line-height:1.7;
-      margin-bottom:22px;
+      margin-bottom:24px;
       font-size:14px;
     }
 
@@ -366,6 +305,7 @@
       text-decoration:none;
       font-weight:700;
       transition:.25s;
+      cursor:pointer;
     }
 
     .download{
@@ -376,32 +316,11 @@
     .docs{
       border:1px solid var(--border);
       color:white;
+      background:transparent;
     }
 
-    .features{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:24px;
-    }
-
-    .feature{
-      background:rgba(255,255,255,.03);
-      border:1px solid var(--border);
-      padding:30px;
-      border-radius:24px;
-    }
-
-    .feature span{
-      font-size:42px;
-      display:block;
-      margin-bottom:16px;
-    }
-
-    .feature p{
-      color:var(--muted);
-      line-height:1.7;
-      margin-top:12px;
-      font-size:14px;
+    .small-btn:hover{
+      transform:translateY(-2px);
     }
 
     footer{
@@ -410,21 +329,20 @@
       color:var(--muted);
     }
 
-    @media(max-width:1100px){
+    @media(max-width:1000px){
+
       .hero-grid{
         grid-template-columns:1fr;
       }
 
-      .stats{
-        grid-template-columns:repeat(2,1fr);
+      h1{
+        font-size:58px;
       }
 
-      .features{
-        grid-template-columns:1fr;
-      }
     }
 
     @media(max-width:850px){
+
       .sidebar{
         display:none;
       }
@@ -434,101 +352,87 @@
         padding:24px;
       }
 
-      .hero h1{
-        font-size:52px;
+      h1{
+        font-size:46px;
       }
 
-      .stats{
-        grid-template-columns:1fr;
-      }
     }
+
   </style>
 </head>
 
 <body>
 
 <div class="grid-bg"></div>
-<div class="blur-orb orb1"></div>
-<div class="blur-orb orb2"></div>
+
+<!-- SIDEBAR -->
 
 <aside class="sidebar">
+
   <div class="logo">
-    <div class="logo-box">N</div>
+
+    <div class="logo-box">
+      K
+    </div>
 
     <div>
-      <h2 style="font-size:18px;font-weight:700;">NexusForge</h2>
-      <p style="font-size:12px;color:var(--muted);">Premium Minecraft Plugins</p>
+      <h2 style="font-size:18px;font-weight:700;">
+        Kaiser
+      </h2>
+
+      <p style="font-size:12px;color:var(--muted);">
+        Minecraft Developer
+      </p>
     </div>
+
   </div>
 
   <div class="nav">
     <a href="#home">Home</a>
     <a href="#plugins">Plugins</a>
-    <a href="#features">Features</a>
-    <a href="#stats">Statistics</a>
     <a href="#contact">Contact</a>
   </div>
 
-  <div class="side-card">
-    <div class="badge">
-      <div class="dot"></div>
-      Development Active
-    </div>
-
-    <p style="font-size:13px;color:var(--muted);line-height:1.7;">
-      Upload premium plugins, publish updates, and manage downloads from your portfolio website.
-    </p>
-  </div>
 </aside>
 
+<!-- MAIN -->
+
 <main class="main">
+
+  <!-- HERO -->
 
   <section class="hero" id="home">
 
     <div class="hero-grid">
 
       <div>
+
         <div class="badge">
           <div class="dot"></div>
-          Trusted by Minecraft communities
+          Active Development
         </div>
 
         <h1>
-          Build Better
-          <span class="gradient">Server Experiences</span>
+          Modern
+          <span class="gradient">
+            Minecraft Plugins
+          </span>
         </h1>
 
         <p>
-          Modern Minecraft plugin development with clean performance-focused systems,
-          intuitive configuration, premium support, and scalable architecture for large communities.
+          Custom Minecraft plugins and Skripts focused on performance,
+          clean gameplay systems, moderation tools, and server utilities.
         </p>
 
         <div class="hero-buttons">
-          <a href="#plugins" class="btn btn-primary">Browse Plugins</a>
-          <a href="#contact" class="btn btn-secondary">Hire Developer</a>
-        </div>
 
-        <div class="stats" id="stats">
+          <a href="#plugins" class="btn btn-primary">
+            Browse Plugins
+          </a>
 
-          <div class="stat">
-            <h3>14K+</h3>
-            <p>Plugin Downloads</p>
-          </div>
-
-          <div class="stat">
-            <h3>37</h3>
-            <p>Published Resources</p>
-          </div>
-
-          <div class="stat">
-            <h3>99.9%</h3>
-            <p>Server Uptime</p>
-          </div>
-
-          <div class="stat">
-            <h3>4.9★</h3>
-            <p>Average Rating</p>
-          </div>
+          <a href="#contact" class="btn btn-secondary">
+            Contact
+          </a>
 
         </div>
 
@@ -538,23 +442,18 @@
 
         <div class="preview-box">
 
-          <div class="terminal-top">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-
           <div class="terminal">
-            > initializing plugin system...<br><br>
 
-            ✔ economy module loaded<br>
-            ✔ permissions synced<br>
-            ✔ mysql connected<br>
-            ✔ cache optimized<br>
-            ✔ anti-lag protection enabled<br><br>
+> loading plugin modules...<br><br>
 
-            server ready.<br>
-            waiting for players...
+✔ worldguard hooked<br>
+✔ permissions synced<br>
+✔ commands loaded<br>
+✔ anti-lag enabled<br>
+✔ startup complete<br><br>
+
+server ready.
+
           </div>
 
         </div>
@@ -565,83 +464,152 @@
 
   </section>
 
+  <!-- PLUGINS -->
+
   <section id="plugins">
 
-    <h2 class="section-title">Featured Plugins</h2>
+    <h2 class="section-title">
+      Plugins & Skripts
+    </h2>
 
     <p class="section-sub">
-      Upload your plugins here with download links, setup documentation,
-      changelogs, update history, and premium support access.
+      Download custom plugins and Skripts directly from the website.
     </p>
 
     <div class="plugins">
 
+      <!-- Hide Players -->
+
       <div class="plugin-card">
 
-        <div class="plugin-banner">⚡</div>
+        <div class="plugin-banner">
+          👻
+        </div>
 
         <div class="plugin-content">
 
-          <div class="tag">UTILITY</div>
+          <div class="tag">
+            UTILITY
+          </div>
 
-          <h3>CoreVelocity</h3>
+          <h3>
+            Hide Players Plugin
+          </h3>
 
           <p>
-            Advanced optimization plugin focused on chunk performance,
-            memory cleanup, entity control, and TPS stabilization.
+            Hide all nearby players while staying protected inside spawn.
           </p>
 
           <div class="plugin-actions">
-            <a href="#" class="small-btn download">Download</a>
-            <a href="#" class="small-btn docs">Documentation</a>
+
+            <a href="downloads/HidePlayersPlugin-1.0.0.jar"
+               class="small-btn download"
+               download>
+               Download
+            </a>
+
+            <button class="small-btn docs"
+            onclick="openModal(
+              'Hide Players Plugin',
+              '/hideplayers makes it so you can see players as long as you dont get hit and as long as you dont leave the region spawn. Requires WorldGuard to run properly.'
+            )">
+
+              More Info
+
+            </button>
+
           </div>
 
         </div>
 
       </div>
 
+      <!-- XRAY -->
+
       <div class="plugin-card">
 
-        <div class="plugin-banner">💎</div>
+        <div class="plugin-banner">
+          ⛏️
+        </div>
 
         <div class="plugin-content">
 
-          <div class="tag">ECONOMY</div>
+          <div class="tag">
+            SECURITY
+          </div>
 
-          <h3>CrystalMarket</h3>
+          <h3>
+            Xray Ore Alerts
+          </h3>
 
           <p>
-            Full-featured auction house and player market with categories,
-            instant search, tax systems, and analytics tracking.
+            Detects suspicious ore mining activity and alerts staff instantly.
           </p>
 
           <div class="plugin-actions">
-            <a href="#" class="small-btn download">Download</a>
-            <a href="#" class="small-btn docs">Documentation</a>
+
+            <a href="downloads/XrayOreAlerts.jar"
+               class="small-btn download"
+               download>
+               Download
+            </a>
+
+            <button class="small-btn docs"
+            onclick="openModal(
+              'Xray Ore Alerts Plugin',
+              'When a player mines diamond or ancient debris, a message is sent to all players with the permission xray.alerts.'
+            )">
+
+              More Info
+
+            </button>
+
           </div>
 
         </div>
 
       </div>
 
+      <!-- HOME -->
+
       <div class="plugin-card">
 
-        <div class="plugin-banner">🛡️</div>
+        <div class="plugin-banner">
+          🏠
+        </div>
 
         <div class="plugin-content">
 
-          <div class="tag">MODERATION</div>
+          <div class="tag">
+            SKRIPT
+          </div>
 
-          <h3>GuardianStaff</h3>
+          <h3>
+            Home Skript
+          </h3>
 
           <p>
-            Professional moderation suite including vanish,
-            freeze tools, staff analytics, reports, and punishment history.
+            Lightweight home system with quick teleportation commands.
           </p>
 
           <div class="plugin-actions">
-            <a href="#" class="small-btn download">Download</a>
-            <a href="#" class="small-btn docs">Documentation</a>
+
+            <a href="downloads/home.sk"
+               class="small-btn download"
+               download>
+               Download
+            </a>
+
+            <button class="small-btn docs"
+            onclick="openModal(
+              'Home Skript',
+              '/sethome sets your home at your current position. /home teleports you back to your saved location.'
+            )">
+
+              More Info
+
+            </button>
+
           </div>
 
         </div>
@@ -652,58 +620,31 @@
 
   </section>
 
-  <section id="features">
-
-    <h2 class="section-title">Why Server Owners Use My Plugins</h2>
-
-    <p class="section-sub">
-      Everything is built around performance, scalability, and modern UX.
-    </p>
-
-    <div class="features">
-
-      <div class="feature">
-        <span>🚀</span>
-        <h3>Optimized Performance</h3>
-        <p>
-          Designed to minimize lag and reduce unnecessary server load even during peak activity.
-        </p>
-      </div>
-
-      <div class="feature">
-        <span>⚙️</span>
-        <h3>Easy Configuration</h3>
-        <p>
-          Simple configuration files with detailed comments and clean organization.
-        </p>
-      </div>
-
-      <div class="feature">
-        <span>🔒</span>
-        <h3>Reliable Support</h3>
-        <p>
-          Fast updates, bug fixes, compatibility patches, and direct Discord support.
-        </p>
-      </div>
-
-    </div>
-
-  </section>
+  <!-- CONTACT -->
 
   <section id="contact">
 
     <div class="preview-box">
 
-      <h2 class="section-title">Need a Custom Plugin?</h2>
+      <h2 class="section-title">
+        Need Something Custom?
+      </h2>
 
       <p class="section-sub">
-        Available for commissions, server setups, private systems,
-        optimization work, and custom Minecraft development.
+        Available for commissions, custom systems,
+        server setup work, and private plugins.
       </p>
 
       <div class="hero-buttons">
-        <a href="#" class="btn btn-primary">Join Discord</a>
-        <a href="#" class="btn btn-secondary">Contact Me</a>
+
+        <a href="#" class="btn btn-primary">
+          Join Discord
+        </a>
+
+        <a href="#" class="btn btn-secondary">
+          Contact Me
+        </a>
+
       </div>
 
     </div>
@@ -711,10 +652,99 @@
   </section>
 
   <footer>
-    <p>NexusForge © 2026 — Premium Minecraft Development</p>
+    <p>
+      Kaiser © 2026 — Minecraft Plugin Development
+    </p>
   </footer>
 
 </main>
+
+<!-- MODAL -->
+
+<div id="pluginModal"
+style="
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.75);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:9999;
+padding:20px;
+">
+
+  <div style="
+  width:100%;
+  max-width:650px;
+  background:#0f1726;
+  border:1px solid #263349;
+  border-radius:28px;
+  padding:32px;
+  position:relative;
+  ">
+
+    <button onclick="closeModal()"
+    style="
+    position:absolute;
+    top:16px;
+    right:18px;
+    background:none;
+    border:none;
+    color:white;
+    font-size:28px;
+    cursor:pointer;
+    ">
+      ×
+    </button>
+
+    <h2 id="modalTitle"
+    style="
+    font-size:34px;
+    margin-bottom:20px;
+    ">
+    </h2>
+
+    <p id="modalText"
+    style="
+    color:#94a3b8;
+    line-height:1.9;
+    font-size:15px;
+    ">
+    </p>
+
+  </div>
+
+</div>
+
+<script>
+
+function openModal(title, text){
+
+  document.getElementById("pluginModal").style.display = "flex";
+
+  document.getElementById("modalTitle").innerText = title;
+
+  document.getElementById("modalText").innerText = text;
+
+}
+
+function closeModal(){
+
+  document.getElementById("pluginModal").style.display = "none";
+
+}
+
+window.onclick = function(event){
+
+  const modal = document.getElementById("pluginModal");
+
+  if(event.target === modal){
+    closeModal();
+  }
+
+}
+
+</script>
 
 </body>
 </html>
