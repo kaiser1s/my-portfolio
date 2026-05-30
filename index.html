@@ -1,804 +1,402 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sirel Hub</title>
-
+  <title>Sirel Hub | Minecraft Developer Portfolio</title>
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
-
-    :root{
-      --bg:#070b14;
-      --panel:#101826;
-      --panel2:#0d1320;
-      --border:#1d2940;
-      --text:#eef4ff;
-      --muted:#8da2c0;
-      --accent:#00d4ff;
-      --accent2:#7c4dff;
+    :root {
+      --bg: #030305;
+      --surface: #0a0c10;
+      --surface-card: #0d1117;
+      --border: #1a202c;
+      --accent: #f59e0b;
+      --accent-glow: rgba(245, 158, 11, 0.06);
     }
 
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
+    body {
+      background-color: var(--bg);
+      color: #f1f5f9;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
     }
 
-    body{
-      background:
-      radial-gradient(circle at top left, rgba(0,212,255,.08), transparent 30%),
-      radial-gradient(circle at bottom right, rgba(124,77,255,.08), transparent 30%),
-      var(--bg);
-
-      color:var(--text);
-      font-family:'Space Grotesk',sans-serif;
-      overflow-x:hidden;
+    .display-font {
+      font-family: 'Space Grotesk', sans-serif;
     }
 
-    html{
-      scroll-behavior:smooth;
+    .ambient-glow {
+      background: radial-gradient(circle at 10% 20%, var(--accent-glow) 0%, transparent 50%);
     }
 
-    .grid-bg{
-      position:fixed;
-      inset:0;
-      background-image:
-      linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
-
-      background-size:40px 40px;
-      z-index:-2;
+    .ambient-glow-2 {
+      background: radial-gradient(circle at 90% 80%, rgba(59, 130, 246, 0.04) 0%, transparent 50%);
     }
 
-    .sidebar{
-      width:280px;
-      background:rgba(10,15,25,.75);
-      backdrop-filter:blur(18px);
-      border-right:1px solid var(--border);
-
-      position:fixed;
-      top:0;
-      left:0;
-      bottom:0;
-
-      padding:28px;
-
-      display:flex;
-      flex-direction:column;
-
-      z-index:1000;
+    .grid-pattern {
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
+      background-size: 40px 40px;
     }
 
-    .logo{
-      display:flex;
-      align-items:center;
-      gap:14px;
-      margin-bottom:50px;
+    .navbar {
+      background: rgba(3, 3, 5, 0.75);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
     }
 
-    .logo-box{
-      width:54px;
-      height:54px;
-      border-radius:18px;
-
-      background:linear-gradient(135deg,var(--accent),var(--accent2));
-
-      display:flex;
-      align-items:center;
-      justify-content:center;
-
-      font-weight:700;
-      font-size:24px;
-      color:white;
+    .avatar-glow::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, var(--accent) 0%, transparent 70%);
+      filter: blur(80px);
+      opacity: 0.15;
+      z-index: -1;
     }
 
-    .nav{
-      display:flex;
-      flex-direction:column;
-      gap:8px;
+    .custom-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .nav a{
-      color:var(--muted);
-      text-decoration:none;
-      padding:12px 14px;
-      border-radius:14px;
-      transition:.25s;
-      font-weight:600;
+    .custom-card:hover {
+      transform: translateY(-5px);
+      border-color: #2563eb;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
     }
 
-    .nav a:hover{
-      background:rgba(255,255,255,.05);
-      color:white;
-      transform:translateX(4px);
+    .btn-main {
+      background: #ffffff;
+      color: #000000;
+      transition: all 0.2s ease;
     }
 
-    .main{
-      margin-left:280px;
-      padding:60px;
+    .btn-main:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.25);
     }
 
-    .hero{
-      min-height:90vh;
-      display:flex;
-      align-items:center;
+    .blur-overlay {
+      backdrop-filter: blur(12px);
+      background: rgba(2, 2, 4, 0.8);
     }
 
-    .hero-grid{
-      display:grid;
-      grid-template-columns:1.2fr .8fr;
-      gap:70px;
-      align-items:center;
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(35px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform, opacity;
     }
 
-    h1{
-      font-size:110px;
-      line-height:.92;
-      margin-bottom:30px;
-      font-weight:700;
+    .scroll-reveal.active {
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    .gradient{
-      background:linear-gradient(90deg,var(--accent),#7ae7ff,var(--accent2));
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-    }
-
-    .hero p{
-      color:var(--muted);
-      line-height:1.8;
-      max-width:850px;
-      margin-bottom:42px;
-      font-size:22px;
-    }
-
-    .hero-buttons{
-      display:flex;
-      gap:16px;
-      flex-wrap:wrap;
-    }
-
-    .btn{
-      padding:15px 28px;
-      border-radius:16px;
-      text-decoration:none;
-      font-weight:700;
-      transition:.25s;
-      display:inline-block;
-      cursor:pointer;
-      border:none;
-    }
-
-    .btn-primary{
-      background:linear-gradient(135deg,var(--accent),var(--accent2));
-      color:white;
-    }
-
-    .btn-primary:hover{
-      transform:translateY(-3px);
-      box-shadow:0 12px 40px rgba(0,212,255,.25);
-    }
-
-    .btn-secondary{
-      border:1px solid var(--border);
-      background:rgba(255,255,255,.03);
-      color:white;
-    }
-
-    .preview-box{
-      background:linear-gradient(180deg,#10192b,#0c1220);
-      border:1px solid var(--border);
-      border-radius:32px;
-      padding:30px;
-    }
-
-    .terminal{
-      font-family:'JetBrains Mono',monospace;
-      color:#91e9ff;
-      line-height:2;
-      font-size:15px;
-    }
-
-    section{
-      margin-bottom:120px;
-    }
-
-    .section-title{
-      font-size:46px;
-      margin-bottom:14px;
-      font-weight:700;
-    }
-
-    .section-sub{
-      color:var(--muted);
-      margin-bottom:40px;
-      max-width:700px;
-      line-height:1.8;
-      font-size:18px;
-    }
-
-    .plugins{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-      gap:24px;
-    }
-
-    .plugin-card{
-      background:linear-gradient(180deg,var(--panel),var(--panel2));
-      border:1px solid var(--border);
-      border-radius:28px;
-      overflow:hidden;
-      transition:.3s;
-    }
-
-    .plugin-card:hover{
-      transform:translateY(-8px);
-      border-color:#35507a;
-    }
-
-    .plugin-banner{
-      height:190px;
-      background:linear-gradient(135deg,#00d4ff22,#7c4dff33);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:70px;
-    }
-
-    .plugin-content{
-      padding:26px;
-    }
-
-    .tag{
-      display:inline-block;
-      padding:7px 12px;
-      border-radius:999px;
-      background:#12233c;
-      color:#7dd3fc;
-      font-size:12px;
-      margin-bottom:16px;
-    }
-
-    .plugin-content h3{
-      font-size:28px;
-      margin-bottom:12px;
-    }
-
-    .plugin-content p{
-      color:var(--muted);
-      line-height:1.7;
-      margin-bottom:24px;
-      font-size:14px;
-    }
-
-    .plugin-actions{
-      display:flex;
-      gap:12px;
-    }
-
-    .small-btn{
-      flex:1;
-      text-align:center;
-      padding:12px;
-      border-radius:12px;
-      text-decoration:none;
-      font-weight:700;
-      transition:.25s;
-      cursor:pointer;
-    }
-
-    .download{
-      background:linear-gradient(135deg,var(--accent),var(--accent2));
-      color:white;
-    }
-
-    .docs{
-      border:1px solid var(--border);
-      color:white;
-      background:transparent;
-    }
-
-    .small-btn:hover{
-      transform:translateY(-2px);
-    }
-
-    footer{
-      border-top:1px solid var(--border);
-      padding-top:40px;
-      color:var(--muted);
-    }
-
-    @media(max-width:1000px){
-
-      .hero-grid{
-        grid-template-columns:1fr;
-      }
-
-      h1{
-        font-size:68px;
-      }
-
-    }
-
-    @media(max-width:850px){
-
-      .sidebar{
-        display:none;
-      }
-
-      .main{
-        margin-left:0;
-        padding:24px;
-      }
-
-      h1{
-        font-size:52px;
-      }
-
-      .hero p{
-        font-size:18px;
-      }
-
-    }
-
+    .delay-1 { transition-delay: 100ms; }
+    .delay-2 { transition-delay: 200ms; }
+    .delay-3 { transition-delay: 300ms; }
   </style>
 </head>
+<body class="antialiased">
 
-<body>
+<div class="fixed inset-0 grid-pattern pointer-events-none z-0"></div>
+<div class="fixed inset-0 ambient-glow pointer-events-none z-0"></div>
+<div class="fixed inset-0 ambient-glow-2 pointer-events-none z-0"></div>
 
-<div class="grid-bg"></div>
-
-<!-- SIDEBAR -->
-
-<aside class="sidebar">
-
-  <div class="logo">
-
-    <div class="logo-box">
-      S
-    </div>
-
-    <div>
-      <h2 style="font-size:20px;font-weight:700;">
-        Sirel Hub
-      </h2>
-
-      <p style="font-size:12px;color:var(--muted);">
-        Minecraft Plugins
-      </p>
-    </div>
-
+<nav class="navbar fixed top-0 left-0 right-0 z-50 px-6 lg:px-16 py-4 flex items-center justify-between">
+  <div class="flex items-center gap-3">
+    <div class="w-8 h-8 rounded-lg bg-amber-500 flex items-center justify-center font-bold text-black text-base">S</div>
+    <span class="text-lg font-bold tracking-tight text-white select-none">Sirel</span>
+  </div>
+  
+  <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400">
+    <a href="#home" class="hover:text-amber-500 transition-colors">Home</a>
+    <a href="#plugins" class="hover:text-amber-500 transition-colors">Plugins</a>
+    <a href="#contact" class="hover:text-amber-500 transition-colors">Commissions</a>
   </div>
 
-  <div class="nav">
-    <a href="#home">Home</a>
-    <a href="#plugins">Plugins</a>
-    <a href="#contact">Contact</a>
+  <div>
+    <button onclick="openDiscord()" class="px-5 py-2 rounded-lg text-xs font-bold uppercase tracking-wider border border-amber-500/20 text-amber-500 bg-amber-500/5 hover:bg-amber-500 hover:text-black transition-all">
+      Discord Contact
+    </button>
   </div>
+</nav>
 
-</aside>
+<main class="relative z-10 max-w-7xl mx-auto px-6 lg:px-16 pt-36">
 
-<!-- MAIN -->
-
-<main class="main">
-
-  <!-- HERO -->
-
-  <section class="hero" id="home">
-
-    <div class="hero-grid">
-
-      <div>
-
-        <h1>
-          Modern
-          <span class="gradient">
-            Minecraft Plugins
-          </span>
+  <section class="min-h-[70vh] flex items-center mb-20 scroll-reveal" id="home">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full">
+      
+      <div class="lg:col-span-7 space-y-6">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md border border-slate-800 bg-slate-900/40 text-xs font-medium text-slate-300">
+          <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+          Custom Minecraft Plugins & Skript Setup
+        </div>
+        
+        <h1 class="display-font text-4xl sm:text-6xl font-bold tracking-tight text-white leading-none">
+          Sirel Hub <br>
+          <span class="text-amber-500">Find Plugins & Tools</span>
         </h1>
-
-        <p>
-          Custom Minecraft plugins and Skripts built for modern servers with
-          optimized performance, clean gameplay systems, moderation utilities,
-          automation features, and high-quality server experiences.
+        
+        <p class="text-base sm:text-lg text-slate-400 font-normal max-w-xl leading-relaxed">
+          Hey, I'm a developer building fast, secure, and reliable systems for Minecraft servers. Check out my work below or contact me for custom script configurations.
         </p>
-
-        <div class="hero-buttons">
-
-          <a href="#plugins" class="btn btn-primary">
-            Browse Plugins
+        
+        <div class="flex flex-wrap gap-4 pt-2">
+          <a href="#plugins" class="btn-main px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wide">
+            View My Plugins
           </a>
-
-          <button onclick="openDiscordModal()" class="btn btn-secondary">
-            Contact Me
+          <button onclick="openDiscord()" class="px-6 py-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white font-bold text-xs uppercase tracking-wide transition-colors">
+            Get In Touch
           </button>
-
         </div>
-
       </div>
 
-      <div>
-
-        <div class="preview-box">
-
-          <div class="terminal">
-
-> initializing sirel systems...<br><br>
-
-✔ plugins compiled<br>
-✔ skripts injected<br>
-✔ cache optimized<br>
-✔ server synced<br>
-✔ security enabled<br><br>
-
-everything is running smoothly.
-
-          </div>
-
+      <div class="lg:col-span-5 flex justify-center lg:justify-end avatar-glow relative">
+        <div class="w-72 h-80 relative flex items-center justify-center select-none pointer-events-none">
+          <div class="text-[140px] filter drop-shadow-[0_0_30px_rgba(245,158,11,0.2)]">⚔️</div>
         </div>
-
       </div>
 
     </div>
-
   </section>
 
-  <!-- PLUGINS -->
-
-  <section id="plugins">
-
-    <h2 class="section-title">
-      Plugins & Skripts
-    </h2>
-
-    <p class="section-sub">
-      Download custom plugins and Skripts directly from the website.
-    </p>
-
-    <div class="plugins">
-
-      <!-- Hide Players -->
-
-      <div class="plugin-card">
-
-        <div class="plugin-banner">
-          👻
-        </div>
-
-        <div class="plugin-content">
-
-          <div class="tag">
-            UTILITY
-          </div>
-
-          <h3>
-            Hide Players Plugin
-          </h3>
-
-          <p>
-            Hide all nearby players while staying protected inside spawn.
-          </p>
-
-          <div class="plugin-actions">
-
-            <a href="downloads/HidePlayersPlugin-1.0.0.jar"
-               class="small-btn download"
-               download>
-               Download
-            </a>
-
-            <button class="small-btn docs"
-            onclick="openInfo(
-              'Hide Players Plugin',
-              '/hideplayers makes it so you can see players as long as you dont get hit and as long as you dont leave the region spawn. Requires WorldGuard to run properly.'
-            )">
-
-              More Info
-
-            </button>
-
-          </div>
-
-        </div>
-
-      </div>
-
-      <!-- XRAY -->
-
-      <div class="plugin-card">
-
-        <div class="plugin-banner">
-          ⛏️
-        </div>
-
-        <div class="plugin-content">
-
-          <div class="tag">
-            SECURITY
-          </div>
-
-          <h3>
-            Xray Ore Alerts
-          </h3>
-
-          <p>
-            Detects suspicious ore mining activity and alerts staff instantly.
-          </p>
-
-          <div class="plugin-actions">
-
-            <a href="downloads/XrayOreAlerts.jar"
-               class="small-btn download"
-               download>
-               Download
-            </a>
-
-            <button class="small-btn docs"
-            onclick="openInfo(
-              'Xray Ore Alerts Plugin',
-              'When a player mines diamond or ancient debris, a message is sent to all players with the permission xray.alerts.'
-            )">
-
-              More Info
-
-            </button>
-
-          </div>
-
-        </div>
-
-      </div>
-
-      <!-- HOME -->
-
-      <div class="plugin-card">
-
-        <div class="plugin-banner">
-          🏠
-        </div>
-
-        <div class="plugin-content">
-
-          <div class="tag">
-            SKRIPT
-          </div>
-
-          <h3>
-            Home Skript
-          </h3>
-
-          <p>
-            Lightweight home system with quick teleportation commands.
-          </p>
-
-          <div class="plugin-actions">
-
-            <a href="downloads/home.sk"
-               class="small-btn download"
-               download>
-               Download
-            </a>
-
-            <button class="small-btn docs"
-            onclick="openInfo(
-              'Home Skript',
-              '/sethome sets your home at your current position. /home teleports you back to your saved location.'
-            )">
-
-              More Info
-
-            </button>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-  <!-- CONTACT -->
-
-  <section id="contact">
-
-    <div class="preview-box">
-
-      <h2 class="section-title">
-        Need Something Custom?
-      </h2>
-
-      <p class="section-sub">
-        Available for commissions, private plugins,
-        custom server systems, and setup work.
+  <section id="plugins" class="pt-16 mb-32">
+    <div class="mb-12 scroll-reveal">
+      <h2 class="display-font text-3xl font-bold tracking-tight mb-2">My Plugins & Skripts</h2>
+      <p class="text-slate-400 text-sm max-w-xl">
+        Download packages directly. Lightweight configs built for server efficiency.
       </p>
+    </div>
 
-      <div class="hero-buttons">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-        <button onclick="openDiscordModal()" class="btn btn-primary">
-          Contact on Discord
-        </button>
+      <div class="custom-card rounded-xl overflow-hidden flex flex-col scroll-reveal delay-1">
+        <div class="h-20 bg-gradient-to-r from-blue-600/30 to-cyan-600/10 border-b border-slate-800/60"></div>
+        <div class="p-6 flex-1 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-blue-400 bg-blue-500/10 px-2.5 py-0.5 rounded">Utility</span>
+              <span class="font-mono text-xs text-slate-500">v1.0.0</span>
+            </div>
+            <h3 class="text-lg font-bold text-slate-100 mb-2">Hide Players</h3>
+            <p class="text-slate-400 text-xs font-light leading-relaxed mb-6">
+              Hides nearby players automatically while standing inside a specific spawn region to prevent lag.
+            </p>
+          </div>
+          <div class="space-y-4">
+            <div class="flex flex-wrap gap-1 font-mono text-[10px] text-slate-400">
+              <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">1.21.1</span>
+              <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">Paper</span>
+              <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">WorldGuard</span>
+            </div>
+            <div class="flex gap-2">
+              <a href="#" class="flex-1 text-center py-2 rounded-lg bg-slate-100 text-black hover:bg-slate-200 font-bold text-xs uppercase tracking-wide transition-colors">Download</a>
+              <button class="px-3 rounded-lg border border-slate-800 text-slate-400 hover:text-white transition-colors" onclick="openDetails('Hide Players', 'Requires WorldGuard. Run /hideplayers reload to refresh config options.')">ℹ️</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
+      <div class="custom-card rounded-xl overflow-hidden flex flex-col scroll-reveal delay-2">
+        <div class="h-20 bg-gradient-to-r from-amber-600/30 to-orange-600/10 border-b border-slate-800/60"></div>
+        <div class="p-6 flex-1 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-amber-500 bg-amber-500/10 px-2.5 py-0.5 rounded">Security</span>
+              <span class="font-mono text-xs text-slate-500">v1.2.0</span>
+            </div>
+            <h3 class="text-lg font-bold text-slate-100 mb-2">Xray Ore Alerts</h3>
+            <p class="text-slate-400 text-xs font-light leading-relaxed mb-6">
+              Sends a fast staff alert when players mine high-value ores suspiciously fast.
+            </p>
+          </div>
+          <div class="space-y-4">
+            <div class="flex flex-wrap gap-1 font-mono text-[10px] text-slate-400">
+              <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">1.21.1</span>
+              <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">Velocity</span>
+              <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">Paper</span>
+            </div>
+            <div class="flex gap-2">
+              <a href="#" class="flex-1 text-center py-2 rounded-lg bg-slate-100 text-black hover:bg-slate-200 font-bold text-xs uppercase tracking-wide transition-colors">Download</a>
+              <button class="px-3 rounded-lg border border-slate-800 text-slate-400 hover:text-white transition-colors" onclick="openDetails('Xray Ore Alerts', 'Monitors diamond and ancient debris mining rates. Alerts are sent to staff members with the correct permissions.')">ℹ️</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="custom-card rounded-xl overflow-hidden flex flex-col scroll-reveal delay-3">
+        <div class="h-20 bg-gradient-to-r from-purple-600/30 to-indigo-600/10 border-b border-slate-800/60"></div>
+        <div class="p-6 flex-1 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-purple-400 bg-purple-500/10 px-2.5 py-0.5 rounded">Skript</span>
+              <span class="font-mono text-xs text-slate-500">v2.0.0</span>
+            </div>
+            <h3 class="text-lg font-bold text-slate-100 mb-2">Simple Home Skript</h3>
+            <p class="text-slate-400 text-xs font-light leading-relaxed mb-6">
+              A clean /sethome and /home system that doesn't cause memory bloat on your network.
+            </p>
+          </div>
+          <div class="space-y-4">
+            <div class="flex flex-wrap gap-1 font-mono text-[10px] text-slate-400">
+              <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">Skript Native</span>
+              <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">Global</span>
+            </div>
+            <div class="flex gap-2">
+              <a href="#" class="flex-1 text-center py-2 rounded-lg bg-slate-100 text-black hover:bg-slate-200 font-bold text-xs uppercase tracking-wide transition-colors">Download</a>
+              <button class="px-3 rounded-lg border border-slate-800 text-slate-400 hover:text-white transition-colors" onclick="openDetails('Simple Home Skript', 'Saves player coordinates instantly. Essential basic setup commands: /sethome and /home.')">ℹ️</button>
+            </div>
+          </div>
+        </div>
       </div>
 
     </div>
-
   </section>
 
-  <footer>
-    <p>
-      Sirel Hub © 2026 — Minecraft Plugin Development
-    </p>
+  <section id="contact" class="mb-24 scroll-reveal">
+    <div class="custom-card rounded-2xl p-8 md:p-12 text-center max-w-4xl mx-auto border border-slate-800 relative overflow-hidden">
+      <div class="absolute -top-32 -left-32 w-64 h-64 bg-amber-500/5 rounded-full filter blur-3xl pointer-events-none"></div>
+      
+      <h2 class="display-font text-3xl font-bold tracking-tight mb-3">Want to build something custom?</h2>
+      <p class="text-slate-400 text-sm max-w-md mx-auto mb-8 leading-relaxed">
+        Get in touch for custom plugin configurations, specialized gameplay elements, or private commissions.
+      </p>
+      
+      <button onclick="openDiscord()" class="btn-main px-8 py-3 rounded-xl font-bold text-xs uppercase tracking-wider">
+        Get in touch on Discord
+      </button>
+    </div>
+  </section>
+
+  <footer class="border-t border-slate-900 pt-12 pb-10 text-xs text-slate-500 scroll-reveal">
+    <div class="grid grid-cols-2 md:grid-cols-12 gap-10 mb-10">
+      <div class="col-span-2 md:col-span-6 space-y-3">
+        <div class="flex items-center gap-2">
+          <div class="w-6 h-6 rounded bg-amber-500 flex items-center justify-center font-bold text-black text-xs">S</div>
+          <span class="font-bold text-slate-300 tracking-tight">Sirel Hub</span>
+        </div>
+        <p class="text-slate-500 max-w-xs leading-relaxed">Custom code implementations and setups tailored completely for community servers.</p>
+      </div>
+      
+      <div class="col-span-1 md:col-span-2 space-y-2">
+        <h4 class="text-slate-300 font-bold uppercase tracking-wider text-[10px]">Company</h4>
+        <ul class="space-y-1.5 font-light">
+          <li><a href="#" class="hover:text-slate-300 transition-colors">Terms of Use</a></li>
+          <li><a href="#" class="hover:text-slate-300 transition-colors">Privacy Policy</a></li>
+        </ul>
+      </div>
+
+      <div class="col-span-1 md:col-span-2 space-y-2">
+        <h4 class="text-slate-300 font-bold uppercase tracking-wider text-[10px]">Resources</h4>
+        <ul class="space-y-1.5 font-light">
+          <li><a href="#" class="hover:text-slate-300 transition-colors">Documentation</a></li>
+          <li><a href="#" class="hover:text-slate-300 transition-colors">Support Portal</a></li>
+        </ul>
+      </div>
+
+      <div class="col-span-1 md:col-span-2 space-y-2">
+        <h4 class="text-slate-300 font-bold uppercase tracking-wider text-[10px]">Socials</h4>
+        <ul class="space-y-1.5 font-light">
+          <li><button onclick="openDiscord()" class="hover:text-slate-300 text-left transition-colors">Discord</button></li>
+          <li><a href="#" class="hover:text-slate-300 transition-colors">YouTube</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="border-t border-slate-950 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-slate-600 font-mono text-[10px]">
+      <p>Sirel Hub © 2026</p>
+      <div class="flex gap-4">
+        <a href="#home" class="hover:text-slate-400 transition-colors">Back to top</a>
+      </div>
+    </div>
   </footer>
 
 </main>
 
-<!-- INFO MODAL -->
-
-<div id="infoModal"
-style="
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.7);
-display:none;
-align-items:center;
-justify-content:center;
-z-index:9999;
-padding:20px;
-backdrop-filter:blur(8px);
-">
-
-  <div style="
-  width:100%;
-  max-width:650px;
-  background:rgba(15,23,38,.95);
-  border:1px solid #263349;
-  border-radius:28px;
-  padding:32px;
-  position:relative;
-  ">
-
-    <button onclick="closeInfo()"
-    style="
-    position:absolute;
-    top:16px;
-    right:18px;
-    background:none;
-    border:none;
-    color:white;
-    font-size:28px;
-    cursor:pointer;
-    ">
-      ×
-    </button>
-
-    <h2 id="infoTitle"
-    style="
-    font-size:34px;
-    margin-bottom:20px;
-    ">
-    </h2>
-
-    <p id="infoText"
-    style="
-    color:#94a3b8;
-    line-height:1.9;
-    font-size:15px;
-    ">
-    </p>
-
+<div id="infoModal" class="blur-overlay fixed inset-0 hidden items-center justify-center z-50 p-4">
+  <div class="w-full max-w-md bg-slate-950 border border-slate-800 rounded-xl p-6 relative">
+    <button onclick="closeDetails()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl font-light">×</button>
+    <h3 id="infoTitle" class="text-lg font-bold mb-2 tracking-tight text-slate-200"></h3>
+    <p id="infoText" class="text-slate-400 font-normal leading-relaxed text-xs bg-slate-900/30 p-4 border border-slate-900 rounded-lg"></p>
   </div>
-
 </div>
 
-<!-- DISCORD MODAL -->
-
-<div id="discordModal"
-style="
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.65);
-display:none;
-align-items:center;
-justify-content:center;
-z-index:99999;
-backdrop-filter:blur(10px);
-padding:20px;
-">
-
-  <div style="
-  width:100%;
-  max-width:520px;
-  background:rgba(15,23,38,.92);
-  border:1px solid #2a3b57;
-  border-radius:28px;
-  padding:40px;
-  text-align:center;
-  position:relative;
-  ">
-
-    <button onclick="closeDiscordModal()"
-    style="
-    position:absolute;
-    top:16px;
-    right:18px;
-    background:none;
-    border:none;
-    color:white;
-    font-size:28px;
-    cursor:pointer;
-    ">
-      ×
-    </button>
-
-    <h2 style="
-    font-size:42px;
-    margin-bottom:18px;
-    ">
-      Add Me On Discord
-    </h2>
-
-    <p style="
-    color:#9fb3cf;
-    font-size:22px;
-    ">
-      eamesteap
-    </p>
-
+<div id="discordModal" class="blur-overlay fixed inset-0 hidden items-center justify-center z-50 p-4">
+  <div class="w-full max-w-md bg-slate-950 border border-slate-800 rounded-2xl p-8 text-center relative">
+    <button onclick="closeDiscord()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl font-light">×</button>
+    <div class="w-12 h-12 bg-amber-500/10 text-amber-500 rounded-xl flex items-center justify-center mx-auto mb-4 text-xl font-bold">💬</div>
+    <h3 class="text-xl font-bold mb-1 tracking-tight text-slate-200">Let's Connect</h3>
+    <p class="text-slate-400 font-light text-xs mb-6">Add me on Discord or send a DM to discuss your server setup.</p>
+    
+    <div class="space-y-3">
+      <div>
+        <span class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 text-left mb-1 pl-1">Primary Developer Tag</span>
+        <div class="bg-slate-900 border border-slate-800 rounded-lg p-3 font-mono text-sm text-white select-all cursor-pointer hover:bg-slate-800 transition-colors" title="Click to highlight text">
+          ht1itay
+        </div>
+      </div>
+      <div>
+        <span class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 text-left mb-1 pl-1">Secondary Tag</span>
+        <div class="bg-slate-900 border border-slate-800 rounded-lg p-3 font-mono text-sm text-slate-400 select-all cursor-pointer hover:bg-slate-800 transition-colors" title="Click to highlight text">
+          japban
+        </div>
+      </div>
+    </div>
   </div>
-
 </div>
 
 <script>
-
-function openInfo(title, text){
-
+function openDetails(title, content){
   document.getElementById("infoModal").style.display = "flex";
-
   document.getElementById("infoTitle").innerText = title;
-
-  document.getElementById("infoText").innerText = text;
-
+  document.getElementById("infoText").innerText = content;
 }
-
-function closeInfo(){
-
+function closeDetails(){
   document.getElementById("infoModal").style.display = "none";
-
 }
-
-function openDiscordModal(){
-
+function openDiscord(){
   document.getElementById("discordModal").style.display = "flex";
-
 }
-
-function closeDiscordModal(){
-
+function closeDiscord(){
   document.getElementById("discordModal").style.display = "none";
-
 }
 
 window.onclick = function(event){
-
   const info = document.getElementById("infoModal");
   const discord = document.getElementById("discordModal");
-
-  if(event.target === info){
-    closeInfo();
-  }
-
-  if(event.target === discord){
-    closeDiscordModal();
-  }
-
+  if(event.target === info) closeDetails();
+  if(event.target === discord) closeDiscord();
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+  const elementsToReveal = document.querySelectorAll(".scroll-reveal");
+  
+  const observerOptions = {
+    root: null,
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px"
+  };
+
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("active");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  elementsToReveal.forEach(element => {
+    revealObserver.observe(element);
+  });
+});
 </script>
 
 </body>
